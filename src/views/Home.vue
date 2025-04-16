@@ -4,8 +4,17 @@
       <h1>SONO</h1>
       <p class="subtitle">local music player</p>
       <div class="cta-buttons">
-        <button class="download">Download Latest</button>
-        <button class="download beta">Download Beta</button>
+        <div class="button-container">
+          <button class="download" @click="downloadLatest">Download Latest</button>
+          <span class="version-text">{{ getRelativeTime() }}</span>
+        </div>
+        <div class="button-container">
+          <button class="download beta" @click="downloadBeta">Download Beta</button>
+          <span class="version-text">never</span>
+        </div>
+      </div>
+      <div class="info-box">
+        <p>⚠️ Currently, only Android APK downloads are available</p>
       </div>
       <div class="scroll-indicator">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +118,125 @@
   </div>
 </template>
 
-<script src="@/assets/js/Home.js"></script>
+<script>
+export default {
+  name: 'Home',
+  data() {
+    return {
+      currentSlide: 0,
+      releaseDate: new Date('2025-04-14'),
+      touchStartX: 0,
+      touchEndX: 0,
+      isAnimating: false
+    }
+  },
+  mounted() {
+    this.scrollToSlide(0);
+    this.setupEventListeners();
+  },
+  beforeDestroy() {
+    this.removeEventListeners();
+  },
+  methods: {
+    getRelativeTime() {
+      const now = new Date();
+      const diffTime = Math.abs(now - this.releaseDate);
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays < 7) return `${diffDays} days ago`;
+      if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+      if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+      return `${Math.floor(diffDays / 365)} years ago`;
+    },
+    downloadLatest() {
+      window.location.href = 'https://cdn.discordapp.com/attachments/1361431527753388273/1362145104659222778/app-release.apk?ex=680153fc&is=6800027c&hm=6d64b4d9d1534a61c071a80848b0fd828c642dce765495e062b24f3c3d358b82&';
+    },
+    downloadBeta() {
+      window.location.href = '';
+    },
+    setupEventListeners() {
+      const container = document.querySelector('.app-preview-container');
+      if (container) {
+        container.addEventListener('touchstart', this.handleTouchStart, { passive: true });
+        container.addEventListener('touchmove', this.handleTouchMove, { passive: true });
+        container.addEventListener('touchend', this.handleTouchEnd);
+        container.addEventListener('wheel', this.handleWheel, { passive: false });
+      }
+    },
+    removeEventListeners() {
+      const container = document.querySelector('.app-preview-container');
+      if (container) {
+        container.removeEventListener('touchstart', this.handleTouchStart);
+        container.removeEventListener('touchmove', this.handleTouchMove);
+        container.removeEventListener('touchend', this.handleTouchEnd);
+        container.removeEventListener('wheel', this.handleWheel);
+      }
+    },
+    handleTouchStart(e) {
+      this.touchStartX = e.touches[0].clientX;
+    },
+    handleTouchMove(e) {
+      this.touchEndX = e.touches[0].clientX;
+    },
+    handleTouchEnd() {
+      if (this.isAnimating) return;
+      const swipeThreshold = 50;
+      const diff = this.touchStartX - this.touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0 && this.currentSlide < 4) {
+          this.scrollToSlide(this.currentSlide + 1);
+        } else if (diff < 0 && this.currentSlide > 0) {
+          this.scrollToSlide(this.currentSlide - 1);
+        }
+      }
+    },
+    handleWheel(e) {
+      if (this.isAnimating) return;
+      
+      const sensitivity = 50;
+      if (Math.abs(e.deltaY) < sensitivity) return;
+      
+      // Allow scrolling up on first slide
+      if (e.deltaY < 0 && this.currentSlide === 0) {
+        return;
+      }
+      
+      // Allow scrolling down on last slide
+      if (e.deltaY > 0 && this.currentSlide === 4) {
+        return;
+      }
+      
+      // Prevent default only when changing slides
+      e.preventDefault();
+      
+      if (e.deltaY > 0 && this.currentSlide < 4) {
+        this.scrollToSlide(this.currentSlide + 1);
+      } else if (e.deltaY < 0 && this.currentSlide > 0) {
+        this.scrollToSlide(this.currentSlide - 1);
+      }
+    },
+    scrollToSlide(index) {
+      if (this.isAnimating) return;
+      this.isAnimating = true;
+      this.currentSlide = index;
+      const wrapper = document.querySelector('.app-preview-wrapper');
+      const previews = document.querySelectorAll('.app-preview');
+      
+      if (wrapper) {
+        wrapper.style.transform = `translateX(-${index * 100}vw)`;
+        previews.forEach((preview, i) => {
+          preview.style.opacity = i === index ? '1' : '0';
+        });
+        
+        setTimeout(() => {
+          this.isAnimating = false;
+        }, 600);
+      }
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .home {
@@ -142,6 +269,18 @@
       display: flex;
       gap: 1.5rem;
       
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+
+        .version-text {
+          font-size: 0.8rem;
+          color: #666;
+        }
+      }
+
       .download {
         padding: 1rem 2rem;
         font-size: 1.1rem;
@@ -162,6 +301,19 @@
         &.beta {
           background: #000;
         }
+      }
+    }
+
+    .info-box {
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.2rem;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      
+      p {
+        font-size: 0.9rem;
+        color: #666;
+        margin: 0;
       }
     }
     
@@ -189,10 +341,21 @@
         flex-direction: column;
         gap: 1rem;
         
+        .button-container {
+          width: 100%;
+          max-width: 300px;
+        }
+
         .download {
           width: 100%;
           max-width: 300px;
         }
+      }
+
+      .info-box {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        max-width: 300px;
       }
     }
   }
@@ -237,7 +400,7 @@
       display: flex;
       height: 100%;
       width: fit-content;
-      transition: transform 0.5s ease-out;
+      transition: transform 0.6s ease-out;
     }
     
     .app-preview {
@@ -245,8 +408,7 @@
       width: 100vw;
       background: #fff;
       flex-shrink: 0;
-      opacity: 0;
-      transition: opacity 0.5s ease-out;
+      transition: opacity 0.6s ease-out;
       
       &.active {
         opacity: 1;
@@ -326,12 +488,20 @@
 
     @media (max-width: 768px) {
       padding-top: 4rem;
+      height: auto;
+      min-height: 100vh;
+      
       .app-preview-wrapper {
-        touch-action: pan-x;
+        touch-action: pan-x pan-y;
       }
       
       .app-preview {
+        min-height: auto;
+        height: auto;
+        
         .section-content {
+          min-height: 100vh;
+          height: auto;
           flex-direction: column;
           padding: 2rem;
           text-align: center;
