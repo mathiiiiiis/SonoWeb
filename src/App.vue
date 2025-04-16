@@ -54,9 +54,18 @@ export default {
     .logo {
         position: absolute;
         left: 2rem;
+        display: flex;
+        align-items: center;
+        
+        a {
+          display: flex;
+          align-items: center;
+          height: fit-content;
+        }
+        
         img {
-        height: 40px;
-        width: auto;
+          height: 40px;
+          width: auto;
         }
     }
 
@@ -85,6 +94,42 @@ export default {
         }
         }
     }
+    }
+
+    @media (max-width: 768px) {
+      padding: 0.5rem;
+      
+      .nav-content {
+        width: 95%;
+        padding: 0.5rem 1rem;
+        
+        .logo {
+          position: static;
+          margin-right: 1rem;
+          
+          img {
+            height: 30px;
+          }
+        }
+        
+        .nav-links {
+          gap: 1rem;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          padding: 0.5rem;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          
+          &::-webkit-scrollbar {
+            display: none;
+          }
+          
+          a {
+            font-size: 0.8rem;
+            white-space: nowrap;
+          }
+        }
+      }
     }
 }
 </style> 

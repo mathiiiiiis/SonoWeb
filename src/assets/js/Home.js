@@ -2,34 +2,71 @@ export default {
     name: 'Home',
     data() {
       return {
-        currentSlide: 0
+        currentSlide: 0,
+        touchStartX: 0,
+        touchEndX: 0,
+        isScrolling: false
       }
     },
     mounted() {
       this.setupHorizontalScroll();
       this.updateActiveSlide();
+      this.setupTouchEvents();
     },
     methods: {
+      setupTouchEvents() {
+        const wrapper = document.querySelector('.app-preview-wrapper');
+        
+        wrapper.addEventListener('touchstart', (e) => {
+          this.touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        
+        wrapper.addEventListener('touchmove', (e) => {
+          if (this.isScrolling) return;
+          e.preventDefault();
+          this.touchEndX = e.touches[0].clientX;
+          this.handleSwipe();
+        }, { passive: false });
+        
+        wrapper.addEventListener('touchend', () => {
+          this.touchStartX = 0;
+          this.touchEndX = 0;
+        }, { passive: true });
+      },
+      
+      handleSwipe() {
+        const swipeThreshold = 50;
+        const swipeDistance = this.touchEndX - this.touchStartX;
+        
+        if (Math.abs(swipeDistance) < swipeThreshold) return;
+        
+        if (swipeDistance > 0 && this.currentSlide > 0) {
+          this.scrollToSlide(this.currentSlide - 1);
+        } else if (swipeDistance < 0 && this.currentSlide < 4) {
+          this.scrollToSlide(this.currentSlide + 1);
+        }
+      },
+      
+      scrollToSlide(index) {
+        if (this.isScrolling) return;
+        this.isScrolling = true;
+        
+        const wrapper = document.querySelector('.app-preview-wrapper');
+        const slideWidth = window.innerWidth;
+        wrapper.style.transform = `translateX(-${index * slideWidth}px)`;
+        this.currentSlide = index;
+        this.updateActiveSlide();
+        
+        setTimeout(() => {
+          this.isScrolling = false;
+        }, 500);
+      },
+      
       setupHorizontalScroll() {
         const container = document.querySelector('.app-preview-container');
         const wrapper = document.querySelector('.app-preview-wrapper');
-        let isScrolling = false;
         let isMouseInContainer = false;
         let isInPreviewSection = false;
-  
-        const scrollToSlide = (index) => {
-          if (isScrolling) return;
-          isScrolling = true;
-          
-          const slideWidth = window.innerWidth;
-          wrapper.style.transform = `translateX(-${index * slideWidth}px)`;
-          this.currentSlide = index;
-          this.updateActiveSlide();
-          
-          setTimeout(() => {
-            isScrolling = false;
-          }, 500);
-        };
   
         const handleScroll = (e) => {
           if (isInPreviewSection) {
@@ -42,14 +79,14 @@ export default {
             
             if (!isMouseInContainer) return;
             
-            if (isScrolling) return;
+            if (this.isScrolling) return;
             
             if (e.deltaY > 0 && this.currentSlide < wrapper.children.length - 1) {
               this.currentSlide++;
-              scrollToSlide(this.currentSlide);
+              this.scrollToSlide(this.currentSlide);
             } else if (e.deltaY < 0 && this.currentSlide > 0) {
               this.currentSlide--;
-              scrollToSlide(this.currentSlide);
+              this.scrollToSlide(this.currentSlide);
             }
           }
         };
@@ -74,12 +111,8 @@ export default {
   
         window.addEventListener('wheel', handleScroll, { passive: false });
         window.addEventListener('scroll', checkScrollPosition);
-        window.addEventListener('touchmove', (e) => {
-          if (isInPreviewSection && this.currentSlide > 0) {
-            e.preventDefault();
-          }
-        }, { passive: false });
       },
+      
       updateActiveSlide() {
         const slides = document.querySelectorAll('.app-preview');
         slides.forEach((slide, index) => {

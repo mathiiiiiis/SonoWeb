@@ -174,6 +174,27 @@
         transform: scale(1.5);
       }
     }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 4rem;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        letter-spacing: 2.6px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+        
+        .download {
+          width: 100%;
+          max-width: 300px;
+        }
+      }
+    }
   }
   
   .app-preview-container {
@@ -182,6 +203,7 @@
     height: 100vh;
     overflow: hidden;
     background: #fff;
+    padding-top: 2rem;
     
     .navigation-dots {
       position: absolute;
@@ -261,7 +283,6 @@
           justify-content: center;
           align-items: center;
           
-          
           .phone-frame {
             position: relative;
             width: 350px;
@@ -302,6 +323,73 @@
         }
       }
     }
+
+    @media (max-width: 768px) {
+      padding-top: 4rem;
+      .app-preview-wrapper {
+        touch-action: pan-x;
+      }
+      
+      .app-preview {
+        .section-content {
+          flex-direction: column;
+          padding: 2rem;
+          text-align: center;
+          justify-content: center;
+          gap: 2rem;
+          
+          .info-section {
+            padding-right: 0;
+            margin-top: 0;
+            order: 2;
+            
+            h2 {
+              font-size: 2rem;
+              margin-bottom: 1rem;
+            }
+            
+            p {
+              font-size: 1rem;
+              max-width: 100%;
+              padding: 0 1rem;
+            }
+          }
+          
+          .phone-mockup {
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto;
+            order: 1;
+            
+            .phone-frame {
+              width: 250px;
+              height: 500px;
+              padding: 8px;
+              border-radius: 30px;
+              
+              &::before {
+                width: 100px;
+                height: 20px;
+              }
+              
+              .screen {
+                border-radius: 22px;
+              }
+            }
+          }
+        }
+      }
+      
+      .navigation-dots {
+        bottom: 1rem;
+        gap: 0.8rem;
+        
+        .dot {
+          width: 6px;
+          height: 6px;
+        }
+      }
+    }
   }
 }
 
@@ -314,51 +402,6 @@
   }
   60% {
     transform: translateY(-10px);
-  }
-}
-
-@media (max-width: 768px) {
-  .home {
-    .hero {
-      h1 {
-        font-size: 4rem;
-      }
-
-      .subtitle {
-        font-size: 1.2rem;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-        gap: 1rem;
-      }
-    }
-
-    .app-preview {
-      .section-content {
-        flex-direction: column;
-        text-align: center;
-        padding: 4rem 5%;
-        
-        .info-section {
-          padding-right: 0;
-          margin-bottom: 3rem;
-          
-          h2 {
-            font-size: 2.5rem;
-          }
-          
-          p {
-            font-size: 1.2rem;
-            margin: 0 auto;
-          }
-        }
-        
-        .phone-mockup .phone-frame {
-          width: 280px;
-        }
-      }
-    }
   }
 }
 </style>
