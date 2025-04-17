@@ -149,7 +149,7 @@ export default {
       return `${Math.floor(diffDays / 365)} years ago`;
     },
     downloadLatest() {
-      window.location.href = 'https://cdn.discordapp.com/attachments/1361431527753388273/1362145104659222778/app-release.apk?ex=680153fc&is=6800027c&hm=6d64b4d9d1534a61c071a80848b0fd828c642dce765495e062b24f3c3d358b82&';
+      window.location.href = 'https://github.com/mathiiiiiis/SonoAPK/releases/download/v1.0.0/app-release.apk';
     },
     downloadBeta() {
       window.location.href = '';
