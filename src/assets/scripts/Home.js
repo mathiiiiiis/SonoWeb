@@ -7,7 +7,8 @@ export default {
     return {
       currentSlide: 0,
       latestReleaseDate: new Date('2025-04-17'),
-      betaReleaseDate: null,
+      betaReleaseDate: new Date('2025-05-10'),
+      betaReleaseUrl: 'https://github.com/mathiiiiiis/SonoAPK/releases/download/v1.0.1-beta/v1.0.1.beta.apk', // Update this URL
       touchStartX: 0,
       touchEndX: 0,
       isAnimating: false,
@@ -80,13 +81,17 @@ export default {
       if (!date) return 'Coming soon';
       
       const now = new Date();
-      const diffTime = Math.abs(now - date);
-      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const diffTime = date - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       
-      if (diffDays < 7) return `${diffDays} days ago`;
-      if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
-      if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
-      return `${Math.floor(diffDays / 365)} years ago`;
+      if (diffDays === 0) return 'Today';
+      if (diffDays > 0) return `In ${diffDays} days`;
+      
+      const pastDays = Math.abs(diffDays);
+      if (pastDays < 7) return `${pastDays} days ago`;
+      if (pastDays < 30) return `${Math.floor(pastDays / 7)} weeks ago`;
+      if (pastDays < 365) return `${Math.floor(pastDays / 30)} months ago`;
+      return `${Math.floor(pastDays / 365)} years ago`;
     },
     downloadLatest() {
       window.location.href = 'https://github.com/mathiiiiiis/SonoAPK/releases/download/v1.0.0/app-release.apk';
@@ -95,7 +100,8 @@ export default {
       }, 1000);
     },
     downloadBeta() {
-      this.showModal = true;
+      window.location.href = this.betaReleaseUrl;
+      this.showDownloadModal = true;
     },
     closeModal() {
       this.showModal = false;
