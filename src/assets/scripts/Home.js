@@ -7,13 +7,14 @@ export default {
     return {
       currentSlide: 0,
       latestReleaseDate: new Date('2025-04-17'),
-      betaReleaseDate: new Date('2025-05-10'),
-      betaReleaseUrl: 'https://github.com/mathiiiiiis/SonoAPK/releases/download/sono-1.0.1-beta-2B3.a7f3d9e/sono-1.0.1-beta+3.a7f3d9e.apk', // Update this URL
+      betaReleaseDate: new Date('2025-05-27'),
+      betaReleaseUrl: 'https://github.com/mathiiiiiis/SonoAPK/releases/download/sono-1.0.2-beta%2B39f77da/sono-1.0.2-beta+39f77da.apk',
       touchStartX: 0,
       touchEndX: 0,
       isAnimating: false,
       showModal: false,
       showDownloadModal: false,
+      showUnavailableLatestModal: false,
       previews: [
         {
           title: "What is Sono?",
@@ -53,7 +54,6 @@ export default {
     this.scrollToSlide(0);
     this.setupEventListeners();
 
-    // Add animated text effect
     const text = document.querySelector('.animated-text');
     if (text) {
       this.setupTextAnimation(text);
@@ -93,15 +93,21 @@ export default {
       if (pastDays < 365) return `${Math.floor(pastDays / 30)} months ago`;
       return `${Math.floor(pastDays / 365)} years ago`;
     },
-    downloadLatest() {
-      window.location.href = 'https://github.com/mathiiiiiis/SonoAPK/releases/download/v1.0.0/app-release.apk';
-      setTimeout(() => {
-        this.showDownloadModal = true;
-      }, 1000);
+    handleLatestDownloadClick() {
+      this.showUnavailableLatestModal = true;
+    },
+    closeUnavailableLatestModal() {
+      this.showUnavailableLatestModal = false;
     },
     downloadBeta() {
       window.location.href = this.betaReleaseUrl;
-      this.showDownloadModal = true;
+      setTimeout(() => {
+        this.showDownloadModal = true;
+      }, 500);
+    },
+    downloadBetaAndCloseModal() {
+      this.downloadBeta();
+      this.closeUnavailableLatestModal();
     },
     closeModal() {
       this.showModal = false;
@@ -133,7 +139,6 @@ export default {
     },
     handleResize() {
       AOS.refresh();
-      
       this.scrollToSlide(this.currentSlide, false);
     },
     handleTouchStart(e) {

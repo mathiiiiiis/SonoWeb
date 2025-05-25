@@ -6,7 +6,7 @@
         <p class="subtitle">local music player</p>
         <div class="cta-buttons">
           <div class="button-container" data-aos="fade-up" data-aos-delay="200">
-            <button class="download pulse-animation" @click="downloadLatest">
+            <button class="download pulse-animation" @click="handleLatestDownloadClick" disabled>
               <div class="button-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -29,7 +29,7 @@
               </div>
               Download Beta
             </button>
-            <span class="version-text">v1.0.1-beta • {{ getRelativeTime(betaReleaseDate) }}</span>
+            <span class="version-text">v1.0.2-beta • {{ getRelativeTime(betaReleaseDate) }}</span>
           </div>
         </div>
       </div>
@@ -127,6 +127,23 @@
         </div>
       </div>
     </div>
+
+    <div class="modal" v-if="showUnavailableLatestModal" @click.self="closeUnavailableLatestModal">
+      <div class="modal-content" data-aos="fade-up" data-aos-duration="300">
+        <div class="modal-header">
+          <h3>Latest Release Information</h3>
+          <button class="modal-close-icon" @click="closeUnavailableLatestModal">×</button>
+        </div>
+        <div class="modal-body">
+          <p>The latest stable release is currently being updated. For the newest features and improvements, please download the Beta version.</p>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-button primary" @click="downloadBetaAndCloseModal">Download Beta</button>
+          <button class="modal-button secondary" @click="closeUnavailableLatestModal">Close</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -137,4 +154,31 @@ export default homeLogic;
 
 <style lang="scss" scoped>
 @use '../assets/styles/Home.scss';
+
+.cta-buttons {
+  .download {
+    &.pulse-animation:disabled {
+      animation: none;
+    }
+
+    &:disabled {
+      background-color: #000;
+      opacity: 0.4;
+      cursor: not-allowed;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      transform: translateY(0);
+
+      &:hover {
+        background-color: #000;
+        opacity: 0.4;
+        transform: translateY(0);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .button-icon {
+        transform: translateY(0);
+      }
+    }
+  }
+}
 </style>
