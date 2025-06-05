@@ -7,8 +7,8 @@ export default {
     return {
       currentSlide: 0,
       latestReleaseDate: new Date('2025-04-17'),
-      betaReleaseDate: new Date('2025-06-01'),
-      betaReleaseUrl: 'https://github.com/mathiiiiiis/SonoAPK/releases/download/1.0.4-beta%2B2ffb385/1.0.4-beta+2ffb385.apk',
+      betaReleaseDate: new Date('2025-06-05'),
+      betaReleaseUrl: 'https://github.com/mathiiiiiis/SonoAPK/releases/download/1.0.5-beta%2B22237ff/1.0.5-beta+22237ff.apk',
       touchStartX: 0,
       touchEndX: 0,
       isAnimating: false,
@@ -18,28 +18,28 @@ export default {
       previews: [
         {
           title: "What is Sono?",
-          description: "A music player that allows you to view and play all your local music with advanced controls and visualizations.",
+          description: "A music player that allows you to view and play all your local audio files. Easy. Offline.",
           image: new URL('@/assets/images/screenshots/NowPlayingScreen.webp', import.meta.url).href
         },
         {
-          title: "Organized Library",
-          description: "Keep all your music organized and easily accessible in one place with intelligent sorting and filtering options.",
+          title: "Library",
+          description: "Keep all your music organized and easily accessible in one place with filtering options.",
           image: new URL('@/assets/images/screenshots/LibraryScreen.webp', import.meta.url).href
         },
         {
-          title: "Powerful Search",
-          description: "Find any track, artist, or album instantly with our lightning-fast search engine.",
+          title: "Search",
+          description: "Find any track, artist, or album instantly.",
           image: new URL('@/assets/images/screenshots/SearchScreen.webp', import.meta.url).href
         },
         {
-          title: "Your Music Dashboard",
-          description: "Access all your favorite tracks, playlists and listening history in one place with personalized recommendations.",
+          title: "Dashboard",
+          description: "Access all your favorite tracks, albums and artists in one place.",
           image: new URL('@/assets/images/screenshots/HomeScreen.webp', import.meta.url).href
         },
         {
-          title: "Artist View",
-          description: "View all the albums and songs from one artist with beautiful visual layouts and artist information.",
-          image: new URL('@/assets/images/screenshots/ArtistScreen.webp', import.meta.url).href
+          title: "Settings",
+          description: "Change Speed, Pitch and other cool stuff in the Sono Settings.",
+          image: new URL('@/assets/images/screenshots/SettingsScreen.webp', import.meta.url).href
         }
       ]
     }
