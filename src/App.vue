@@ -9,7 +9,7 @@
           <router-link to="/">home</router-link>
           <a href="https://github.com/mathiiiiiis/SonoApp" target="_blank">source</a>
           <router-link to="/packs">song packs</router-link>
-          <a href="https://discord.gg/48fvsUCNwu" target="_blank">community</a>
+          <a href="https://discord.gg/48fvsUCNwu" target="_blank">discord</a>
         </div>
       </div>
     </nav>
