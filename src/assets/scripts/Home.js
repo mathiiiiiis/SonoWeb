@@ -8,7 +8,7 @@ export default {
       currentSlide: 0,
       latestReleaseDate: new Date('2025-04-17'),
       betaReleaseDate: new Date('2025-08-23'),
-      betaReleaseUrl: 'https://github.com/mathiiiiiis/SonoAPK/releases/download/1.0.7-beta%2B5719d6c/1.0.7-beta+5719d6c.apk',
+      betaReleaseUrl: 'https://github.com/mathiiiiiis/SonoAPK/releases/download/1.0.8-beta%2Be5852a9/1.0.8-beta+e5852a9.apk',
       touchStartX: 0,
       touchEndX: 0,
       isAnimating: false,
