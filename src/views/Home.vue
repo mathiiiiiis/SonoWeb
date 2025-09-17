@@ -29,7 +29,7 @@
               </div>
               Download Beta
             </button>
-            <span class="version-text">v1.0.7-beta • {{ getRelativeTime(betaReleaseDate) }}</span>
+            <span class="version-text">v1.0.8-beta • {{ getRelativeTime(betaReleaseDate) }}</span>
           </div>
         </div>
       </div>
