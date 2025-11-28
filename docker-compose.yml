@@ -1,7 +1,10 @@
 services:
   web:
-    build: .
     container_name: sono-website
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "${PORT}:80"
-    restart: unless-stopped
+    restart: always
+    pull_policy: build
