@@ -5,5 +5,3 @@ dist
 *.md
 .env*
 .DS_Store
-Dockerfile
-docker-compose.yml
