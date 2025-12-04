@@ -7,7 +7,6 @@ import 'aos/dist/aos.css'
 
 const app = createApp(App)
 
-// Initialize AOS
 AOS.init({
   duration: 1000,
   once: false,

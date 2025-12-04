@@ -1,5 +1,6 @@
 <template>
   <div class="legal-page">
+    <Header />
     <div class="legal-container">
       <header class="legal-header">
         <h1>Privacy Policy</h1>
@@ -298,8 +299,13 @@
 </template>
 
 <script>
+import Header from '../components/Header.vue'
+
 export default {
   name: 'PrivacyPolicy',
+  components: {
+    Header
+  },
   metaInfo: {
     title: 'Privacy Policy - Sono',
     meta: [
@@ -315,176 +321,198 @@ export default {
 <style scoped>
 .legal-page {
   min-height: 100vh;
-  background: #ffffff;
-  color: #333;
-  padding: 8rem 1rem 2rem;
+  background: var(--bg-primary);
+  padding: 80px 24px 120px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .legal-page {
+    padding: 80px 24px 160px;
+  }
 }
 
 .legal-container {
   max-width: 900px;
   margin: 0 auto;
-  background: #fff;
-  border-radius: 20px;
-  padding: 3rem 2.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .legal-header {
   text-align: center;
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 2px solid #000;
+  margin-bottom: 48px;
 }
 
 .legal-header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #000;
-  margin-bottom: 0.5rem;
-  letter-spacing: 1px;
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--text-light);
+  margin: 0 0 12px 0;
 }
 
 .last-updated {
-  color: #666;
-  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-size: 14px;
   font-weight: 500;
 }
 
+.legal-content {
+  padding: 48px;
+}
+
+@media (max-width: 768px) {
+  .legal-content {
+    padding: 32px 24px;
+  }
+
+  .legal-header h1 {
+    font-size: 36px;
+  }
+}
+
 .legal-content section {
-  margin-bottom: 2.5rem;
+  margin-bottom: 40px;
 }
 
 .legal-content h2 {
-  font-size: 1.5rem;
-  color: #000;
-  margin-bottom: 1rem;
+  font-size: 24px;
+  color: var(--text-light);
+  margin: 0 0 16px 0;
   font-weight: 600;
 }
 
 .legal-content h3 {
-  font-size: 1.2rem;
-  color: #333;
-  margin: 1.5rem 0 1rem;
+  font-size: 20px;
+  color: var(--text-light);
+  margin: 24px 0 12px 0;
   font-weight: 600;
 }
 
 .legal-content p {
   line-height: 1.8;
-  margin-bottom: 1rem;
-  color: #333;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: 15px;
 }
 
 .legal-content ul {
-  margin: 1rem 0 1rem 2rem;
+  margin: 16px 0 16px 32px;
   line-height: 1.8;
 }
 
 .legal-content li {
-  margin-bottom: 0.5rem;
-  color: #333;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-size: 15px;
 }
 
 .legal-content strong {
-  color: #000;
+  color: var(--text-light);
   font-weight: 600;
 }
 
 .legal-content a {
-  color: #000;
+  color: var(--text-light);
   text-decoration: none;
-  border-bottom: 1px solid #000;
-  transition: opacity 0.3s ease;
-  word-break: break-all;
+  border-bottom: 1px solid var(--border-light-20);
+  transition: all var(--transition-fast);
+  word-break: break-word;
 }
 
 .legal-content a:hover {
-  opacity: 0.6;
+  border-bottom-color: var(--text-light);
 }
 
 address {
   font-style: normal;
   line-height: 1.8;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.03);
-  border-left: 3px solid #000;
-  margin: 1rem 0;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid var(--text-light);
+  border-radius: 8px;
+  margin: 16px 0;
+  color: var(--text-secondary);
+  font-size: 15px;
 }
 
 .important-box,
 .highlight-box {
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px solid #000;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-light-20);
   border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
+  padding: 24px;
+  margin: 24px 0;
 }
 
 .important-box p,
 .highlight-box p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-size: 15px;
 }
 
 .important-box ul,
 .highlight-box ul {
-  margin-top: 0.5rem;
-  margin-left: 1.5rem;
+  margin-top: 8px;
+  margin-left: 24px;
 }
 
 .legal-footer {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  margin-top: 48px;
+  padding: 32px 48px;
+  background: var(--bg-container);
+  border-radius: 16px;
   text-align: center;
+  border: 1px solid var(--border-light-10);
+}
+
+@media (max-width: 768px) {
+  .legal-footer {
+    padding: 24px;
+  }
 }
 
 .legal-footer h3 {
-  color: #000;
-  margin-bottom: 1rem;
+  color: var(--text-light);
+  margin-bottom: 16px;
   font-weight: 600;
+  font-size: 20px;
+}
+
+.legal-footer p {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 15px;
 }
 
 .legal-footer a {
-  color: #000;
+  color: var(--text-light);
   text-decoration: none;
-  border-bottom: 1px solid #000;
-  transition: opacity 0.3s ease;
+  border-bottom: 1px solid var(--border-light-20);
+  transition: all var(--transition-fast);
 }
 
 .legal-footer a:hover {
-  opacity: 0.6;
+  border-bottom-color: var(--text-light);
 }
 
 .compliance-note {
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  color: #666;
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text-tertiary);
   font-style: italic;
 }
 
 @media (max-width: 768px) {
-  .legal-page {
-    padding: 6rem 1rem 2rem;
-  }
-
-  .legal-container {
-    padding: 2rem 1.5rem;
-  }
-
-  .legal-header h1 {
-    font-size: 2rem;
-  }
-
-  .legal-content h2 {
-    font-size: 1.3rem;
-  }
-
-  .legal-content h3 {
-    font-size: 1.1rem;
-  }
-
   .important-box,
   .highlight-box {
-    padding: 1rem;
+    padding: 16px;
   }
 }
 </style>

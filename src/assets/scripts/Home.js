@@ -1,5 +1,6 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { screenshots } from '@/config/mediaPaths.js';
 
 export default {
   name: 'Home',
@@ -19,27 +20,27 @@ export default {
         {
           title: "What is Sono?",
           description: "A music player that allows you to view and play all your local audio files. Easy. Offline.",
-          image: new URL('@/assets/images/screenshots/NowPlayingScreen.webp', import.meta.url).href
+          image: screenshots.nowPlaying
         },
         {
           title: "Library",
           description: "Keep all your music organized and easily accessible in one place with filtering options.",
-          image: new URL('@/assets/images/screenshots/LibraryScreen.webp', import.meta.url).href
+          image: screenshots.library
         },
         {
           title: "Search",
           description: "Find any track, artist, or album instantly.",
-          image: new URL('@/assets/images/screenshots/SearchScreen.webp', import.meta.url).href
+          image: screenshots.search
         },
         {
           title: "Dashboard",
           description: "Access all your favorite tracks, albums and artists in one place.",
-          image: new URL('@/assets/images/screenshots/HomeScreen.webp', import.meta.url).href
+          image: screenshots.home
         },
         {
           title: "Settings",
           description: "Change Speed, Pitch and other cool stuff in the Sono Settings.",
-          image: new URL('@/assets/images/screenshots/SettingsScreen.webp', import.meta.url).href
+          image: screenshots.settings
         }
       ]
     }
@@ -85,13 +86,13 @@ export default {
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       
       if (diffDays === 0) return 'Today';
-      if (diffDays > 0) return `In ${diffDays} days`;
+      if (diffDays > 0) return `In ${diffDays} day(s)`;
       
       const pastDays = Math.abs(diffDays);
-      if (pastDays < 7) return `${pastDays} days ago`;
-      if (pastDays < 30) return `${Math.floor(pastDays / 7)} weeks ago`;
-      if (pastDays < 365) return `${Math.floor(pastDays / 30)} months ago`;
-      return `${Math.floor(pastDays / 365)} years ago`;
+      if (pastDays < 7) return `${pastDays} day(s) ago`;
+      if (pastDays < 30) return `${Math.floor(pastDays / 7)} week(s) ago`;
+      if (pastDays < 365) return `${Math.floor(pastDays / 30)} month(s) ago`;
+      return `${Math.floor(pastDays / 365)} year(s) ago`;
     },
     handleLatestDownloadClick() {
       this.showUnavailableLatestModal = true;
