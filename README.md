@@ -1,3 +1,7 @@
 # SONO WEBSITE
 
-This is the code for the official Sono Website
+This repository contains the code for the Sono website, built with Vue. It can be deployed easily using Docker.
+
+## Contributing
+If you want to contribute, fork the repository and open a pull request with your change
+s.
