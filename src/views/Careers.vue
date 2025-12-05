@@ -11,7 +11,7 @@
         <div class="intro-box">
           <p class="intro-text">
             We're a small team looking for talented individuals to help us make Sono even better.
-            These are hobby positions with <strong>low to no payment</strong> (because we're poor af),
+            These are hobby positions with <strong>little to no payment</strong> (because we're poor af),
             but you'll get to work on a cool open-source project (it will be fun, and that's what matters).
           </p>
         </div>
