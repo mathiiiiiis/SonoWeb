@@ -5,7 +5,7 @@ on:
     branches:
       - main
   workflow_dispatch:
-  
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -18,7 +18,7 @@ jobs:
         env:
           WEBHOOK_URL: ${{ secrets.PORTAINER_WEBHOOK_URL }}
         run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$WEBHOOK_URL")
+          response=$(curl -k -s -o /dev/null -w "%{http_code}" -X POST "$WEBHOOK_URL")
           echo "Response code: $response"
           
           if [ "$response" -eq 200 ] || [ "$response" -eq 204 ]; then
