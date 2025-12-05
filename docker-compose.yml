@@ -3,6 +3,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: sono-backend:latest
     container_name: sono-backend
     expose:
       - "${BACKEND_PORT}"
@@ -28,6 +29,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: sono-frontend:latest
     container_name: sono-frontend
     ports:
       - "${FRONTEND_PORT}:80"
