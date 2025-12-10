@@ -46,49 +46,126 @@
 
 /* ========== HERO SECTION ========== */
 .hero {
+  display: grid;
+  grid-template-columns: 3.5fr 2.5fr;
   min-height: 85vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 100px 40px 60px;
   text-align: center;
 
+  @media (max-width: 1250px) {
+    grid-template-columns: 1fr !important;
+
+    .hero-visuals {
+      display: none !important;
+    }
+
+    .hero-left {
+      height: auto;
+      padding: 80px 24px 60px;
+    }
+  }
+
   @media (max-width: 768px) {
+    grid-template-columns: 1fr;
     padding: 100px 24px 60px;
   }
 
-  .hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-    animation: fadeIn 0.8s ease-out;
+  .hero-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 85vh;
+    padding: 100px 40px 60px;
 
-    .hero-title {
-      font-family: var(--font-heading);
-      font-size: 96px;
-      font-weight: 400;
-      color: var(--text-light);
-      margin: 0 0 8px 0;
-      letter-spacing: 2px;
-      animation: slideUp 0.8s ease-out 0.2s both;
-
-      @media (max-width: 768px) {
-        font-size: 64px;
-      }
-
-      @media (max-width: 480px) {
-        font-size: 48px;
-      }
+    @media (max-width: 768px) {
+      order: 1;
+      height: auto;
+      padding: 60px 0 40px;
     }
 
-    .hero-subtitle {
-      font-size: 17px;
-      color: var(--text-secondary);
-      margin: 0 0 36px 0;
-      letter-spacing: 0.3px;
-      animation: slideUp 0.8s ease-out 0.4s both;
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      animation: fadeIn 0.8s ease-out;
+
+      .hero-title {
+        font-family: var(--font-heading);
+        font-size: clamp(3.5rem, 10vw + 0.5rem, 7rem);
+        font-weight: 400;
+        color: var(--text-light);
+        margin: 0 0 8px 0;
+        letter-spacing: 2px;
+        animation: slideUp 0.8s ease-out 0.2s both;
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+        color: var(--text-secondary);
+        margin: 0 0 36px 0;
+        letter-spacing: 0.3px;
+        animation: slideUp 0.8s ease-out 0.4s both;
+      }
+    }
+  }
+
+  .hero-visuals {
+    max-height: 95vh;
+    padding: 100px 40px 60px;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      order: 2;
+      margin-top: 20px;
+    }
+  }
+
+  .hero-visuals img {
+    position: absolute;
+    opacity: 0;
+    left: -6rem;
+    transform-origin: bottom center;
+    animation: cardFadeSlideRotate 1.8s ease forwards;
+    height: 80%;
+    border-radius: 24px;
+
+    @supports (corner-shape: squircle) {
+      corner-shape: squircle;
+      border-radius: 64px;
+    }
+  }
+
+  .hero-visuals img:nth-child(1) {
+    animation-delay: 0s;
+    --rotation-multiplier: 0;
+    z-index: 2;
+  }
+
+  .hero-visuals img:nth-child(2) {
+    animation-delay: 0.3s;
+    --rotation-multiplier: 5;
+    z-index: 1;
+  }
+
+  .hero-visuals img:nth-child(3) {
+    animation-delay: 0.6s;
+    --rotation-multiplier: 10;
+  }
+
+  @keyframes cardFadeSlideRotate {
+    0% {
+      opacity: 0;
+      transform: translateX(120px) rotate(-60deg) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0)
+        rotate(calc(3deg * var(--rotation-multiplier)))
+        scale(1);
     }
   }
 }
+
 
 /* ========== DOWNLOAD BUTTONS ========== */
 .download-buttons {
@@ -110,7 +187,7 @@
     padding: 12px 24px;
     border-radius: 100px;
     font-weight: 500;
-    font-size: 14px;
+    font-size: clamp(0.9rem, 1.1vw, 1rem); /* 14px → 16px */
     border: none;
     cursor: pointer;
     transition: all var(--transition-fast);
@@ -164,7 +241,7 @@
     gap: 6px;
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 14px;
+    font-size: clamp(0.85rem, 1vw, 1rem);
     transition: all var(--transition-fast);
 
     svg {
@@ -180,6 +257,99 @@
     }
   }
 }
+
+
+/* ========== DOWNLOAD BUTTONS ========== */
+.download-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 28px;
+  animation: slideUp 0.8s ease-out 0.6s both;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: clamp(0.8rem, 1vw, 0.9rem); /* 13px → 14.5px */
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-family: var(--font-primary);
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    &.primary {
+      background: white;
+      color: var(--text-dark);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+    }
+
+    &.secondary {
+      background: var(--text-dark);
+      color: var(--text-light);
+      border: 1px solid var(--border-light-20);
+
+      &:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+}
+
+/* ========== TRY SONOWEB ========== */
+.try-sonoweb {
+  margin-bottom: 48px;
+  animation: fadeIn 0.8s ease-out 0.8s both;
+
+  .link-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: clamp(0.85rem, 1vw, 1rem); /* gentle scale */
+    transition: all var(--transition-fast);
+
+    svg {
+      transition: transform var(--transition-fast);
+    }
+
+    &:hover {
+      color: var(--text-light);
+
+      svg {
+        transform: translateX(3px);
+      }
+    }
+  }
+}
+
 
 /* ========== SCREEN RECORDINGS ========== */
 .screen-recordings {
