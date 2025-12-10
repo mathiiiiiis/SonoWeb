@@ -154,11 +154,11 @@
 
   @keyframes cardSlideRotate {
     0% {
-      /*opacity: 0;*/
-      transform: translateX(120px) rotate(-60deg) scale(0.9);
+      transform: translateX(calc(150px + 20px * var(--rotation-multiplier))) 
+                 rotate(calc(-30deg - 3deg * var(--rotation-multiplier))) 
+                 scale(0.9);
     }
     100% {
-      /*opacity: 1;*/
       transform: translateX(0)
         rotate(calc(3deg * var(--rotation-multiplier)))
         scale(1);
