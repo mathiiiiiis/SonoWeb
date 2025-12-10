@@ -122,10 +122,10 @@
 
   .hero-visuals img {
     position: absolute;
-    opacity: 0;
+    opacity: 1;
     left: -6rem;
     transform-origin: bottom center;
-    animation: cardFadeSlideRotate 1.8s ease forwards;
+    animation: cardSlideRotate 1.8s ease forwards;
     height: 80%;
     border-radius: 24px;
 
@@ -152,13 +152,13 @@
     --rotation-multiplier: 10;
   }
 
-  @keyframes cardFadeSlideRotate {
+  @keyframes cardSlideRotate {
     0% {
-      opacity: 0;
+      /*opacity: 0;*/
       transform: translateX(120px) rotate(-60deg) scale(0.9);
     }
     100% {
-      opacity: 1;
+      /*opacity: 1;*/
       transform: translateX(0)
         rotate(calc(3deg * var(--rotation-multiplier)))
         scale(1);
